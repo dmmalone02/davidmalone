@@ -3,21 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Malone | Systems, Research, Innovation</title>
+  <title>David Malone | Systems & Innovation</title>
   <style>
     :root {
       --bg: #050505;
-      --bg-alt: #0b0b0b;
       --surface: #111111;
-      --surface-soft: #151515;
       --border: #262626;
-      --border-soft: #1a1a1a;
       --text: #f5f5f5;
       --muted: #a3a3a3;
-      --accent: #fafafa; /* subtle, still monochrome */
       --radius-lg: 1.1rem;
       --radius-pill: 999px;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.7);
     }
 
     * {
@@ -32,21 +27,16 @@
       background: radial-gradient(circle at top, #171717 0, #020202 55%);
       color: var(--text);
       line-height: 1.6;
-      scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* NAVBAR */
+    a { color: inherit; text-decoration: none; }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 10;
       backdrop-filter: blur(18px);
       background: rgba(5, 5, 5, 0.9);
       border-bottom: 1px solid rgba(38, 38, 38, 0.9);
@@ -81,14 +71,11 @@
       padding: 0.35rem 0.85rem;
       border-radius: var(--radius-pill);
       border: 1px solid transparent;
-      transition: background 0.15s ease, color 0.15s ease,
-        border-color 0.15s ease, transform 0.15s ease;
     }
 
     .nav-links a:hover {
       background: #0a0a0a;
       border-color: var(--border);
-      transform: translateY(-1px);
     }
 
     main {
@@ -98,19 +85,161 @@
     }
 
     section {
-      padding: 3.5rem 0;
+      padding: 3rem 0;
       border-bottom: 1px solid rgba(23, 23, 23, 0.95);
     }
 
-    /* HERO */
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.1fr);
-      gap: 2.5rem;
-      align-items: center;
-      padding-top: 2.6rem;
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 650;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
     }
 
-    .hero-title {
-      font-size
+    .hero-title span {
+      color: #ffffff;
+      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.16));
+    }
+
+    .hero-subtitle {
+      font-size: 0.94rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: var(--radius-pill);
+      background: #050505;
+      border: 1px solid #262626;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      margin-right: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid #262626;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-right: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .btn-primary {
+      background: #f5f5f5;
+      color: #050505;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 550;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-description {
+      font-size: 0.94rem;
+      color: var(--muted);
+      max-width: 40rem;
+    }
+
+    footer {
+      padding: 2rem 1.25rem 2.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(23, 23, 23, 0.95);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="nav-left">DAVID MALONE</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home">
+      <h1 class="hero-title">
+        Systems, <span>research</span>, and engineered innovation.
+      </h1>
+      <p class="hero-subtitle">
+        I design and build intelligent systems at the intersection of hardware, wireless communication,
+        and AI.
+      </p>
+      <div>
+        <span class="tag">Embedded systems</span>
+        <span class="tag">Wireless &amp; OWC</span>
+        <span class="tag">Signal processing</span>
+      </div>
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn">Contact</a>
+    </section>
+
+    <section id="about">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Operating at the boundary</h2>
+      <p class="section-description">
+        I’m an Electrical Engineering and Physics student focused on building systems that combine
+        signal processing, embedded hardware, and networking.
+      </p>
+    </section>
+
+    <section id="projects">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Selected work</h2>
+      <p class="section-description">
+        Project descriptions will go here.
+      </p>
+    </section>
+
+    <section id="contact">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Signal in</h2>
+      <p class="section-description">
+        Email: your.email@domain.com
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> David Malone · Systems & Innovation
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
