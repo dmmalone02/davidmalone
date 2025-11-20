@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Malone | Systems & Innovation</title>
+  <title>David Malone | Systems, Research, Innovation</title>
   <style>
     :root {
       --bg: #050505;
+      --bg-alt: #0b0b0b;
       --surface: #111111;
+      --surface-soft: #151515;
       --border: #262626;
+      --border-soft: #1a1a1a;
       --text: #f5f5f5;
       --muted: #a3a3a3;
+      --accent: #fafafa; /* subtle, still monochrome */
       --radius-lg: 1.1rem;
       --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.7);
     }
 
     * {
@@ -27,16 +32,21 @@
       background: radial-gradient(circle at top, #171717 0, #020202 55%);
       color: var(--text);
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAVBAR */
 
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 50;
       backdrop-filter: blur(18px);
       background: rgba(5, 5, 5, 0.9);
       border-bottom: 1px solid rgba(38, 38, 38, 0.9);
@@ -71,11 +81,14 @@
       padding: 0.35rem 0.85rem;
       border-radius: var(--radius-pill);
       border: 1px solid transparent;
+      transition: background 0.15s ease, color 0.15s ease,
+        border-color 0.15s ease, transform 0.15s ease;
     }
 
     .nav-links a:hover {
       background: #0a0a0a;
       border-color: var(--border);
+      transform: translateY(-1px);
     }
 
     main {
@@ -85,12 +98,22 @@
     }
 
     section {
-      padding: 3rem 0;
+      padding: 3.5rem 0;
       border-bottom: 1px solid rgba(23, 23, 23, 0.95);
     }
 
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.1fr);
+      gap: 2.5rem;
+      align-items: center;
+      padding-top: 2.6rem;
+    }
+
     .hero-title {
-      font-size: 2.4rem;
+      font-size: clamp(2.2rem, 3.2vw, 3rem);
       font-weight: 650;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -98,19 +121,30 @@
     }
 
     .hero-title span {
-      color: #ffffff;
-      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.16));
+      color: var(--accent);
+      filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.12));
     }
 
     .hero-subtitle {
       font-size: 0.94rem;
       color: var(--muted);
       max-width: 32rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .hero-subtitle strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 1.9rem;
     }
 
     .tag {
-      display: inline-block;
       font-size: 0.7rem;
       padding: 0.3rem 0.9rem;
       border-radius: var(--radius-pill);
@@ -119,29 +153,119 @@
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.13em;
-      margin-right: 0.4rem;
-      margin-bottom: 0.4rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.4rem;
       padding: 0.65rem 1.4rem;
       border-radius: var(--radius-pill);
-      border: 1px solid #262626;
+      border: 1px solid transparent;
       font-size: 0.8rem;
       font-weight: 500;
+      cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      margin-right: 0.5rem;
-      margin-top: 1rem;
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+        background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
     }
 
     .btn-primary {
       background: #f5f5f5;
       color: #050505;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
     }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.95);
+      background: #ffffff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: #262626;
+      color: var(--muted);
+    }
+
+    .btn-outline:hover {
+      background: #060606;
+      border-color: #e5e5e5;
+      color: #f5f5f5;
+      transform: translateY(-1px);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #1a1a1a, #050505 60%);
+      border-radius: 1.4rem;
+      border: 1px solid var(--border);
+      padding: 1.55rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle at top,
+        rgba(255, 255, 255, 0.09),
+        transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1.15rem;
+    }
+
+    .hero-stat {
+      padding: 0.7rem 0.8rem;
+      border-radius: 0.9rem;
+      background: #050505;
+      border: 1px solid var(--border-soft);
+    }
+
+    .hero-stat label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .hero-stat span {
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    /* SECTION HEADERS */
 
     .section-label {
       font-size: 0.72rem;
@@ -163,6 +287,115 @@
       font-size: 0.94rem;
       color: var(--muted);
       max-width: 40rem;
+      margin-bottom: 1.4rem;
+    }
+
+    /* GRID & CARDS */
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.1rem 1.25rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.06),
+        transparent 55%
+      );
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card h3 {
+      font-size: 0.98rem;
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+    }
+
+    .pill {
+      font-size: 0.68rem;
+      padding: 0.22rem 0.7rem;
+      border-radius: var(--radius-pill);
+      background: #050505;
+      border: 1px solid #262626;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+
+    /* CONTACT */
+
+    .contact-wrapper {
+      max-width: 32rem;
+      background: #050505;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-row {
+      margin-bottom: 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-link {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .contact-link:hover {
+      text-decoration: underline;
+      text-decoration-style: dotted;
     }
 
     footer {
@@ -174,7 +407,15 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .nav-links {
+        display: none; /* keep mobile minimal for now */
+      }
     }
   </style>
 </head>
@@ -185,52 +426,262 @@
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="#research">Research</a>
+        <a href="#services">Business</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section id="home">
-      <h1 class="hero-title">
-        Systems, <span>research</span>, and engineered innovation.
-      </h1>
-      <p class="hero-subtitle">
-        I design and build intelligent systems at the intersection of hardware, wireless communication,
-        and AI.
-      </p>
+    <!-- HERO -->
+    <section class="hero" id="home">
       <div>
-        <span class="tag">Embedded systems</span>
-        <span class="tag">Wireless &amp; OWC</span>
-        <span class="tag">Signal processing</span>
+        <h1 class="hero-title">
+          Systems, <span>research</span>, and engineered innovation.
+        </h1>
+        <p class="hero-subtitle">
+          I design and build <strong>intelligent, measurable systems</strong> at the intersection of
+          hardware, wireless communication, and AI — turning abstract ideas into reproducible, lab-grade
+          platforms and prototypes.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">Embedded systems</span>
+          <span class="tag">Wireless &amp; OWC</span>
+          <span class="tag">Signal processing</span>
+          <span class="tag">AI workflows</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#services" class="btn btn-outline">Work With Me</a>
+        </div>
       </div>
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="#contact" class="btn">Contact</a>
+
+      <aside class="hero-card">
+        <div class="hero-card-inner">
+          <div class="hero-card-title">Profile Snapshot</div>
+          <p style="font-size:0.88rem;color:var(--muted);">
+            Electrical Engineering &amp; Physics student focused on
+            <span style="color:var(--accent);">future-facing infrastructure</span> — hybrid RF/OWC
+            networks, mobility platforms, and JARVIS-style digital tooling.
+          </p>
+          <div class="hero-stat-grid">
+            <div class="hero-stat">
+              <label>Discipline</label>
+              <span>EE · Physics</span>
+            </div>
+            <div class="hero-stat">
+              <label>Domains</label>
+              <span>Comms · DSP · AI</span>
+            </div>
+            <div class="hero-stat">
+              <label>Mode</label>
+              <span>Research &amp; Build</span>
+            </div>
+            <div class="hero-stat">
+              <label>Available For</label>
+              <span>Collab · Projects</span>
+            </div>
+          </div>
+        </div>
+      </aside>
     </section>
 
+    <!-- ABOUT -->
     <section id="about">
       <div class="section-label">About</div>
       <h2 class="section-title">Operating at the boundary</h2>
       <p class="section-description">
-        I’m an Electrical Engineering and Physics student focused on building systems that combine
-        signal processing, embedded hardware, and networking.
+        I’m an Electrical Engineering and Physics student at the University of Massachusetts Boston. My
+        work sits where theory, code, and hardware collide: signal processing, embedded systems, wireless
+        links, and intelligent control.
+      </p>
+      <p class="section-description">
+        I care about systems that can be measured, reproduced, and scaled. That means testbeds instead
+        of slides, data instead of claims, and code + schematics that actually compile and run on real
+        hardware.
       </p>
     </section>
 
+    <!-- PROJECTS -->
     <section id="projects">
       <div class="section-label">Projects</div>
-      <h2 class="section-title">Selected work</h2>
+      <h2 class="section-title">Selected builds & experiments</h2>
       <p class="section-description">
-        Project descriptions will go here.
+        A snapshot of platforms and experiments I’ve designed and implemented — blending hardware,
+        control, and analysis. Additional documentation and repositories will be linked over time.
       </p>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>Hybrid RF/OWC Mobility Testbed</h3>
+          <p>
+            Modular testbed using Raspberry Pi nodes, an OpenBuilds ACRO 2020 gantry, and motion capture
+            to evaluate hybrid RF/Optical links under mobility, interference, and dense deployments.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Raspberry Pi 5</span>
+            <span class="pill">Mobility platform</span>
+            <span class="pill">Network metrics</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Ultrasonic Distance Measurement</h3>
+          <p>
+            STM32 firmware using timers, PWM, and input capture to drive an ultrasonic sensor, compute
+            distance, and stream real-time measurements with LED behavior mapped to proximity.
+          </p>
+          <div class="pill-row">
+            <span class="pill">STM32L476</span>
+            <span class="pill">Low-level C</span>
+            <span class="pill">Real-time I/O</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>JARVIS Home Hub (In Progress)</h3>
+          <p>
+            Architecture for a persistent, multi-device assistant running on a Raspberry Pi hub —
+            designed to integrate voice, memory, and lab automation into a single control surface.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Raspberry Pi</span>
+            <span class="pill">Python</span>
+            <span class="pill">Automation</span>
+          </div>
+        </article>
+      </div>
     </section>
 
+    <!-- RESEARCH -->
+    <section id="research">
+      <div class="section-label">Research</div>
+      <h2 class="section-title">UCaN Lab · wireless futures</h2>
+      <p class="section-description">
+        At the UCaN Lab, I work on next-generation connectivity in ultra-dense wireless environments,
+        with a focus on hybrid Radio Frequency / Optical Wireless Communication (RF/OWC) and
+        mobility-aware testbeds.
+      </p>
+
+      <div class="grid grid-2">
+        <article class="card">
+          <h3>Focus Areas</h3>
+          <p>
+            My contributions live at the edge of communications theory and experimental validation.
+          </p>
+          <ul style="margin-top:0.6rem;font-size:0.88rem;color:var(--muted);padding-left:1.1rem;">
+            <li>Hybrid RF/Optical wireless links</li>
+            <li>Ultra-dense networking scenarios</li>
+            <li>Motion-capture-driven mobility analysis</li>
+            <li>Raspberry Pi sensing and RSSI logging</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Key Contributions</h3>
+          <ul style="margin-top:0.4rem;font-size:0.88rem;color:var(--muted);padding-left:1.1rem;">
+            <li>
+              Integrated the OpenBuilds ACRO 2020 gantry with OptiTrack to create a precise,
+              reproducible mobility evaluation platform.
+            </li>
+            <li>
+              Helped implement a hybrid RF/OWC testbed to study link behavior under movement and
+              interference.
+            </li>
+            <li>
+              Developed Raspberry Pi 5 receiver units for continuous RSSI capture and experiment logging.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="section-label">Business</div>
+      <h2 class="section-title">Collaboration & services</h2>
+      <p class="section-description">
+        I’m open to focused collaborations and project work where a mix of embedded design, signal
+        processing, and practical engineering execution is valuable.
+      </p>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>Embedded & Prototyping</h3>
+          <p>
+            Design, bring-up, and debugging of embedded systems: microcontrollers, sensors, actuators,
+            timing, PWM, and integration with host systems.
+          </p>
+          <div class="pill-row">
+            <span class="pill">STM32 / Arduino</span>
+            <span class="pill">Raspberry Pi</span>
+            <span class="pill">Prototype</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Signals, DSP & Testbeds</h3>
+          <p>
+            Support for filters, signal chains, and experimental setups for communication or sensing —
+            including data capture and analysis.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Filters</span>
+            <span class="pill">RF / OWC</span>
+            <span class="pill">Measurement</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Student & Project Support</h3>
+          <p>
+            Guidance on circuits, signals & systems, basic programming, or course projects — from initial
+            concept to implementation and documentation.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Tutoring</span>
+            <span class="pill">Project coaching</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
     <section id="contact">
       <div class="section-label">Contact</div>
       <h2 class="section-title">Signal in</h2>
       <p class="section-description">
-        Email: your.email@domain.com
+        If you’re interested in collaborating, need help with a build, or want to explore ideas around
+        wireless systems, AI, and hardware, reach out below.
       </p>
+
+      <div class="contact-wrapper">
+        <div class="contact-row">
+          <div class="contact-label">Email</div>
+          <div>
+            <a class="contact-link" href="mailto:your.email@domain.com">
+              your.email@domain.com
+            </a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label">LinkedIn</div>
+          <div>
+            <a class="contact-link" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+              linkedin.com/in/your-profile
+            </a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label">GitHub</div>
+          <div>
+            <a class="contact-link" href="https://github.com/" target="_blank" rel="noreferrer">
+              github.com/your-username
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
